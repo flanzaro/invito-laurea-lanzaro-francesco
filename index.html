@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invito Apericena di Laurea</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --primary: #58a6ff;
+            --accent: #d29922;
+            --keyword: #ff7b72;
+            --string: #a5d6ff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 550px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -150px;
+            right: -150px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(88, 166, 255, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .header { text-align: center; margin-bottom: 30px; }
+        .code-font { font-family: 'Fira Code', monospace; }
+
+        .tag-laurea {
+            display: inline-block;
+            background: rgba(210, 153, 34, 0.15);
+            color: var(--accent);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            border: 1px solid rgba(210, 153, 34, 0.3);
+        }
+
+        h1 { font-size: 2.2rem; font-weight: 800; color: #fff; margin-bottom: 5px; }
+        .subtitle { color: var(--text-muted); font-size: 1.05rem; }
+
+        .countdown-box {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        .cd-item span { display: block; font-size: 1.5rem; font-weight: bold; color: var(--primary); }
+        .cd-item label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
+
+        .details { margin-bottom: 30px; }
+        .info-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .info-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+        .info-card i { font-size: 1.4rem; color: var(--accent); width: 25px; text-align: center; }
+        .info-card .info-text h3 { font-size: 0.95rem; color: #fff; margin-bottom: 2px; }
+        .info-card .info-text p { font-size: 0.85rem; color: var(--text-muted); }
+
+        .terminal {
+            background: #05070a;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 30px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        .terminal-header { display: flex; gap: 6px; margin-bottom: 10px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot-r { background: #ff5f56; }
+        .dot-y { background: #ffbd2e; }
+        .dot-g { background: #27c93f; }
+        
+        .actions { display: flex; gap: 15px; }
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: opacity 0.2s;
+            text-decoration: none;
+        }
+        .btn-yes { background: #238636; color: #fff; }
+        .btn-no { background: #21262d; color: #f0f6fc; border: 1px solid var(--border-color); }
+        .btn:hover { opacity: 0.9; }
+
+        .keyword { color: var(--keyword); }
+        .string { color: var(--string); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <span class="tag-laurea code-font">&lt;LaureaInformaticaAziendale /&gt;</span>
+            <h1>HELLO WORLD!</h1>
+            <p class="subtitle">Il commit finale: sto per laurearmi!</p>
+        </div>
+
+        <div class="countdown-box code-font" id="countdown-container">
+            <div class="cd-item"><span id="days">00</span><label>Giorni</label></div>
+            <div class="cd-item"><span id="hours">00</span><label>Ore</label></div>
+            <div class="cd-item"><span id="minutes">00</span><label>Min</label></div>
+            <div class="cd-item"><span id="seconds">00</span><label>Sec</label></div>
+        </div>
+
+        <div class="details">
+            <div class="info-card">
+                <i class="fa-solid fa-calendar-days"></i>
+                <div class="info-text">
+                    <h3>Venerdì 29 Maggio 2026</h3>
+                    <p>Inizio evento ore 20:30</p>
+                </div>
+            </div>
+
+            <a href="https://maps.google.com/?q=Gallucci+Food+SS7bis+176+80035+Nola+NA" target="_blank" class="info-card">
+                <i class="fa-solid fa-location-dot"></i>
+                <div class="info-text">
+                    <h3>Gallucci Food</h3>
+                    <p>SS7bis, 176, 80035 Nola NA (Clicca per navigatore)</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="terminal code-font">
+            <div class="terminal-header">
+                <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+            </div>
+            <div><span class="keyword">if</span> (guest.isComing) {</div>
+            <div>&nbsp;&nbsp;beer.status = <span class="string">"UNLIMITED"</span>;</div>
+            <div>&nbsp;&nbsp;fun.execute();</div>
+            <div>} <span class="keyword">else</span> {</div>
+            <div>&nbsp;&nbsp;<span class="keyword">throw new</span> FriendException(<span class="string">"MissingFriend"</span>);</div>
+            <div>}</div>
+        </div>
+
+        <div class="actions">
+            <a href="https://wa.me/393202644968?text=Ciao!%20Confermo%20con%20gioia%20la%20mia%20presenza%20alla%20tua%20festa%20di%20laurea!%20%F0%9F%A5%82%F0%9F%8E%89" target="_blank" class="btn btn-yes">
+                <i class="fa-brands fa-whatsapp"></i> CI SARÒ!
+            </a>
+            <button onclick="declineParty()" class="btn btn-no">NON POSSO</button>
+        </div>
+    </div>
+
+    <script>
+        // Imposta la data dell'evento
+        const targetDate = new Date('May 29, 2026 20:30:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference < 0) {
+                document.getElementById('countdown-container').innerHTML = "<h2 style='color: #58a6ff; width: 100%; text-align: center;'>PARTY IN CORSO! 🥂</h2>";
+                return;
+            }
+
+            const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = d.toString().padStart(2, '0');
+            document.getElementById('hours').innerText = h.toString().padStart(2, '0');
+            document.getElementById('minutes').innerText = m.toString().padStart(2, '0');
+            document.getElementById('seconds').innerText = s.toString().padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        function declineParty() {
+            alert("ERRORE DI COMPILAZIONE\n\nImpossibile declinare l'invito. La tua presenza è una dipendenza richiesta (Required Dependency) per l'avvio corretto della festa. Riprova cliccando su 'CI SARÒ!' 😉");
+        }
+    </script>
+</body>
+</html>
