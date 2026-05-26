@@ -45,6 +45,7 @@
             overflow: hidden;
         }
 
+        /* Effetto luce di sfondo */
         .container::before {
             content: '';
             position: absolute;
@@ -57,6 +58,7 @@
         }
 
         .header { text-align: center; margin-bottom: 30px; }
+        
         .code-font { font-family: 'Fira Code', monospace; }
 
         .tag-laurea {
@@ -74,6 +76,7 @@
         h1 { font-size: 2.2rem; font-weight: 800; color: #fff; margin-bottom: 5px; }
         .subtitle { color: var(--text-muted); font-size: 1.05rem; }
 
+        /* Countdown */
         .countdown-box {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -88,6 +91,7 @@
         .cd-item span { display: block; font-size: 1.5rem; font-weight: bold; color: var(--primary); }
         .cd-item label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
 
+        /* Dettagli */
         .details { margin-bottom: 30px; }
         .info-card {
             display: flex;
@@ -110,6 +114,7 @@
         .info-card .info-text h3 { font-size: 0.95rem; color: #fff; margin-bottom: 2px; }
         .info-card .info-text p { font-size: 0.85rem; color: var(--text-muted); }
 
+        /* Terminale interattivo */
         .terminal {
             background: #05070a;
             border: 1px solid var(--border-color);
@@ -125,6 +130,7 @@
         .dot-y { background: #ffbd2e; }
         .dot-g { background: #27c93f; }
         
+        /* Bottoni */
         .actions { display: flex; gap: 15px; }
         .btn {
             flex: 1;
@@ -153,12 +159,12 @@
 
     <div class="container">
         <div class="header">
-            <span class="tag-laurea code-font">&lt;LaureaInformaticaAziendale /&gt;</span>
+            <span class="tag-laurea code-font">&lt;LaureaInformaticaPerLeAziendeDigitali /&gt;</span>
             <h1>HELLO WORLD!</h1>
             <p class="subtitle">Il commit finale: sto per laurearmi!</p>
         </div>
 
-        <div class="countdown-box code-font" id="countdown-container">
+        <div class="countdown-box code-font">
             <div class="cd-item"><span id="days">00</span><label>Giorni</label></div>
             <div class="cd-item"><span id="hours">00</span><label>Ore</label></div>
             <div class="cd-item"><span id="minutes">00</span><label>Min</label></div>
@@ -196,7 +202,7 @@
         </div>
 
         <div class="actions">
-            <a href="https://wa.me/393202644968?text=Ciao!%20Confermo%20con%20gioia%20la%20mia%20presenza%20alla%20tua%20festa%20di%20laurea!%20%F0%9F%A5%82%F0%9F%8E%89" target="_blank" class="btn btn-yes">
+            <a href="https://wa.me/39123456789?text=Ciao!%20Confermo%20con%20gioia%20la%20mia%20presenza%20alla%20tua%20festa%20di%20laurea!%20%F0%9F%A5%82%F0%9F%8E%89" target="_blank" class="btn btn-yes">
                 <i class="fa-brands fa-whatsapp"></i> CI SARÒ!
             </a>
             <button onclick="declineParty()" class="btn btn-no">NON POSSO</button>
@@ -212,7 +218,7 @@
             const difference = targetDate - now;
 
             if (difference < 0) {
-                document.getElementById('countdown-container').innerHTML = "<h2 style='color: #58a6ff; width: 100%; text-align: center;'>PARTY IN CORSO! 🥂</h2>";
+                document.querySelector('.countdown-box').innerHTML = "PARTY IN CORSO! 🥂";
                 return;
             }
 
@@ -221,17 +227,18 @@
             const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((difference % (1000 * 60)) / 1000);
 
-            document.getElementById('days').innerText = d.toString().padStart(2, '0');
-            document.getElementById('hours').innerText = h.toString().padStart(2, '0');
-            document.getElementById('minutes').innerText = m.toString().padStart(2, '0');
-            document.getElementById('seconds').innerText = s.toString().padStart(2, '0');
+            document.getElementById('days').innerText = d < 10 ? '0' + d : d;
+            document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
+            document.getElementById('minutes').innerText = m < 10 ? '0' + m : m;
+            document.getElementById('seconds').innerText = s < 10 ? '0' + s : s;
         }
 
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
+        // Scherzo per chi clicca "Non posso"
         function declineParty() {
-            alert("ERRORE DI COMPILAZIONE\n\nImpossibile declinare l'invito. La tua presenza è una dipendenza richiesta (Required Dependency) per l'avvio corretto della festa. Riprova cliccando su 'CI SARÒ!' 😉");
+            alert("ERRORE DI COMPILAZIONE:\n\nImpossibile declinare l'invito. La tua presenza è una dipendenza richiesta (Required Dependency) per l'avvio corretto della festa. Riprova cliccando su 'CI SARÒ!' 😉");
         }
     </script>
 </body>
